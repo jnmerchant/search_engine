@@ -15,6 +15,7 @@ def main
   end
 
   seed_database(conn, file_path)
+  conn.close
 end
 
 def seed_database(conn, file_path)
