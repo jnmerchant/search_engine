@@ -34,20 +34,15 @@ def main
 end
 
 def search(conn, table_name)
-  puts "Please enter a value from the list below to search: "
-  display_fields(conn, table_name)
-  field_name = gets.chomp
+  field_name = value_to_search(conn, table_name)
   get_field_values(conn, table_name, field_name)
   search_value = gets.chomp
   search_database(conn, table_name, field_name, search_value)
 end
 
 def sort(conn, table_name)
-  puts "Please enter a value from the list below to search: "
-  display_fields(conn, table_name)
-  sort_field = gets.chomp
-  puts "Please enter ASC or DESC sort order: "
-  sort_order = gets.chomp.upcase
+  sort_field = value_to_search(conn, table_name)
+  sort_order = get_sort_order(conn, table_name)
   sort_database(conn, table_name, sort_field, sort_order)
 end
 
@@ -70,6 +65,17 @@ def delete(conn, table_name)
   record_id = gets.chomp.to_i
   id_field_name = 'id'
   delete_record(conn, table_name, id_field_name, record_id)
+end
+
+def value_to_search(conn, table_name)
+  puts "Please enter a value from the list below to search: "
+  display_fields(conn, table_name)
+  gets.chomp
+end
+
+def get_sort_order(conn, table_name)
+  puts "Please enter ASC or DESC sort order: "
+  sort_order = gets.chomp.upcase
 end
 
 def search_database(conn, table_name, field_name, search_value)
