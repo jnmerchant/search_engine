@@ -1,4 +1,5 @@
 require 'pg'
+require_relative 'seed_search_engine'
 #database name is search_engine
 #table name is reject_stats
 
@@ -7,7 +8,13 @@ def main
   table_name = 'reject_stats'
   search_options = {}
 
-  "Lending Club 2016 Q3 Rejected Loan Database"
+  records = conn.exec("SELECT COUNT(*) FROM #{table_name};")
+  row_count = records.getvalue 0, 0
+  if row_count.to_i == 0
+    build_table
+  end
+
+  puts "Lending Club 2016 Q3 Rejected Loan Database"
 
   # search_value = 'TX'
   # field_name = 'state'
@@ -17,11 +24,11 @@ def main
   # sort_order = 'DESC'
   # sort_database(conn, table_name, sort_field, sort_order)
 
-  record_id = 1
-  id_field_name = 'id'
-  updated_value = 450
-  field_name = 'risk_score'
-  update_record(conn, table_name, field_name, id_field_name, updated_value, record_id)
+  # record_id = 1
+  # id_field_name = 'id'
+  # updated_value = 450
+  # field_name = 'risk_score'
+  # update_record(conn, table_name, field_name, id_field_name, updated_value, record_id)
 
   conn.close
 end

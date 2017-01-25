@@ -3,7 +3,7 @@
 require 'csv'
 require 'pg'
 
-def main
+def build_table
   conn = PG.connect(dbname: 'search_engine')
   file_path= '/Users/Joe/Documents/TIY/Week3/search_engine/data/q3_reject_stats.csv'
 
@@ -34,7 +34,4 @@ def seed_database(conn, file_path)
     VALUES ('#{amount}', '#{application_date}', '#{loan_title}', '#{risk_score}',
     '#{debt_to_income}', '#{zip_code}', '#{state}', '#{employment_length}');")
   end
-
 end
-
-main if __FILE__ == $PROGRAM_NAME
